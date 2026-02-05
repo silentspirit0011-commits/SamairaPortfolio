@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Contact Me</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #0f172a, #1e293b);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color: white;
+    }
+
+    .contact-container {
+        width: 90%;
+        max-width: 450px;
+        background: #111827;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        text-align: center;
+    }
+
+    h2 {
+        color: #38bdf8;
+        margin-bottom: 10px;
+    }
+
+    p {
+        color: #cbd5e1;
+        margin-bottom: 20px;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 12px;
+        border-radius: 8px;
+        border: none;
+        background: #1e293b;
+        color: white;
+        outline: none;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        background: linear-gradient(90deg, #38bdf8, #6366f1);
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        transform: scale(1.05);
+    }
+
+    #status {
+        margin-top: 10px;
+        font-weight: bold;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="contact-container">
+    <h2>Contact Me</h2>
+    <p>Let’s work together 🚀</p>
+
+    <form action="https://formspree.io/f/xykdgpbo" method="POST">
+    <input type="text" name="name" placeholder="Your Name" required />
+    <input type="email" name="email" placeholder="Your Email" required />
+    <input type="tel" name="phone" placeholder="Phone Number" required />
+    <textarea name="message" rows="4" placeholder="Your Message..." required></textarea>
+    
+    <button type="submit">Send Message</button>
+</form>
+
+
+    <div id="status"></div>
+</div>
+
+<script>
+document.getElementById("contactForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
+    const phone = phoneInput.value.trim();
+    const message = messageInput.value.trim();
+
+    if (!name || !email || !phone || !message) {
+        status.textContent = "Please fill all fields!";
+        status.style.color = "red";
+        return;
+    }
+
+    const data = { name, email, phone, message };
+    let stored = JSON.parse(localStorage.getItem("portfolioMessages")) || [];
+    stored.push(data);
+    localStorage.setItem("portfolioMessages", JSON.stringify(stored));
+
+    status.textContent = "Message saved successfully!";
+    status.style.color = "#22c55e";
+
+    contactForm.reset();
+});
+</script>
+
+</body>
+</html>
